@@ -10,9 +10,7 @@ def image_preprocessing(image):
 
 def process_image(image):
     img = image_preprocessing(image)
-    print(f"Img: {img}")
     model = generate_model()
-    print(f"Model: {model}")
 
     hr_img = model(img, True)
     return hr_img[0]
