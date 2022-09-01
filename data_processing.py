@@ -1,16 +1,33 @@
 import tensorflow as tf
 from models import generate_model
 import numpy as np
+import time
 
 def image_preprocessing(image):
-    img = tf.convert_to_tensor(image, dtype=tf.float32)
+    print("")
+    print(f"img1: {image.shape}")
+    print("")
+    img = tf.cast(image, tf.float32)
+    print(f"img2: {img.shape}")
+    print("")
     img = tf.expand_dims(img, 0)
-    return tf.TensorSpec.from_tensor(img)
+    print(f"img3: {img.shape}")
+    print("")
+    return img
 
 
 def process_image(image):
     img = image_preprocessing(image)
+    print(f"img4: {img.shape}")
+    print("")
+    tic = time.time()
     model = generate_model()
-
+    toc = time.time()
+    print(f"[ MODEL GENERATED IN {int(toc-tic)} SECONDS ]")
+    print("")
+    tic = time.time()
     hr_img = model(img, True)
-    return hr_img[0]
+    toc = time.time()
+    print(f"[ HR_IMAGE GENERATED IN {int(toc-tic)} SECONDS ]")
+    print("")
+    return hr_img
